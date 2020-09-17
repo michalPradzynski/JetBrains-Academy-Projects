@@ -53,7 +53,7 @@ class CoffeeMachine:
     ${self.inventory["money"]} of money
     """
 
-    def __init__(self):
+    def machine_logic(self):
         while True:
             action = input("Write action (buy, fill, take, remaining, exit): ")
             if action == "buy":
@@ -75,4 +75,4 @@ class CoffeeMachine:
 
 
 coffee = CoffeeMachine()
-coffee.__init__()
+coffee.machine_logic()
