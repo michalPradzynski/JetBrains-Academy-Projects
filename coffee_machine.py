@@ -1,18 +1,12 @@
+import sys
+
+
 class CoffeeMachine:
     inventory = {"water": 400, "milk": 540, "beans": 120, "money": 550, "cups": 9}
 
     ESPRESSO = {"water": 250, "milk": 0, "beans": 16, "money": 4, "cups": 1}
     LATTE = {"water": 350, "milk": 75, "beans": 20, "money": 7, "cups": 1}
     CAPPUCCINO = {"water": 200, "milk": 100, "beans": 12, "money": 6, "cups": 1}
-
-    log_machine_state = f"""
-    The coffee machine has:
-    {inventory["water"]} of water
-    {inventory["milk"]} of milk
-    {inventory["beans"]} of coffee beans
-    {inventory["cups"]} of disposable cups
-    ${inventory["money"]} of money
-    """
 
     def coffee_buy(self, coffee_type):
         if coffee_type == "1":
@@ -22,7 +16,7 @@ class CoffeeMachine:
         elif coffee_type == "3":
             coffee_type = self.CAPPUCCINO
         for key, value in self.inventory.items():
-            if (value - coffee_type[key]) >= 0: # or (key == "cups" and coffee_type["cups"] > 0):
+            if (value - coffee_type[key]) >= 0:  # or (key == "cups" and coffee_type["cups"] > 0):
                 if key == "money":
                     value += coffee_type[key]
                 else:
@@ -44,8 +38,24 @@ class CoffeeMachine:
         self.inventory["beans"] += coffee_fill
         self.inventory["cups"] += cups_fill
 
-    def machine_logic(self, action):
+    def money_extraction(self):
+        money = self.inventory["money"]
+        print(f"I gave you ${money}")
+        self.inventory["money"] = 0
+        
+    def log_machine_state(self):
+        return f"""
+    The coffee machine has:
+    {self.inventory["water"]} of water
+    {self.inventory["milk"]} of milk
+    {self.inventory["beans"]} of coffee beans
+    {self.inventory["cups"]} of disposable cups
+    ${self.inventory["money"]} of money
+    """
+
+    def __init__(self):
         while True:
+            action = input("Write action (buy, fill, take, remaining, exit): ")
             if action == "buy":
                 while True:
                     which_coffee = input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu: ")
@@ -57,14 +67,12 @@ class CoffeeMachine:
             elif action == "fill":
                 self.machine_fill()
             elif action == "take":
-                money = self.inventory["money"]
-                print(f"I gave you ${money}")
-                self.inventory["money"] = 0
+                self.money_extraction()
             elif action == "remaining":
-                print(self.log_machine_state)
+                print(self.log_machine_state())
             elif action == "exit":
-                break
+                sys.exit()
 
 
 coffee = CoffeeMachine()
-coffee.machine_logic(input("Write action (buy, fill, take, remaining, exit): "))
+coffee.__init__()
