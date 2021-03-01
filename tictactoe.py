@@ -46,6 +46,14 @@ if __name__ == '__main__':
 
     while True:
         while True:
+            """ 
+            Player has to choose a cell it wants to place its symbol in.
+            Input format: "X Y" where X is row number and Y is column number.
+            Game grid coordinates:
+            (1, 1) (1, 2) (1, 3)
+            (2, 1) (2, 2) (2, 3)
+            (3, 1) (3, 2) (3, 3)
+            """
             coordinates: str = input("Enter the coordinates: ")
             x, y = coordinates.split()
 
