@@ -1,3 +1,10 @@
+"""
+This script helps to convert your text into markdown formatted text 
+that can be used in for example README.md files.
+Simply specify which formatter you want to use, choose additional options and type in your text.
+In the end, the whole provided lines are saved into 'output.md' file.
+"""
+
 FORMATTERS: list = ["plain", "bold", "italic", "link", "inline-code", "header", "new-line", "ordered-list", "unordered-list"]
 SPECIAL_COMMANDS: list = ["!help", "!done"]
 
